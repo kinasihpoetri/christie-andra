@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestie Batman Selamanya</title>
+  
+  <!-- Google Fonts: Montserrat (Modern Clean) & Bangers (Comic/Batman Header style) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:ital,wght@0,300;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================
+       BATMAN COLOR PALETTE & GLOBAL STYLES
+       ========================================================== */
+    :root {
+      --bat-black: #0B0E14;
+      --bat-dark-gray: #151922;
+      --bat-card-bg: rgba(26, 31, 44, 0.75);
+      --bat-card-border: #2A3245;
+      --bat-yellow: #F5C518;
+      --bat-yellow-glow: rgba(245, 197, 24, 0.35);
+      --bat-text: #E2E8F0;
+      --bat-text-muted: #94A3B8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bat-black);
+      color: var(--bat-text);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(245, 197, 24, 0.08) 0%, transparent 60%),
+        linear-gradient(to bottom, #07090d, #0b0e14, #050609);
+    }
+
+    /* Ambient Spotlight Background Effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--bat-yellow-glow) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(50px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ==========================================================
+       HEADER & BAT-SIGNAL
+       ========================================================== */
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .bat-logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bat-yellow);
+      border-radius: 50%;
+      box-shadow: 0 0 25px var(--bat-yellow-glow);
+    }
+
+    .bat-logo svg {
+      width: 45px;
+      fill: var(--bat-black);
+    }
+
+    header h1 {
+      font-family: 'Bangers', cursive;
+      font-size: 3rem;
+      letter-spacing: 4px;
+      color: var(--bat-yellow);
+      text-transform: uppercase;
+      text-shadow: 0 0 15px var(--bat-yellow-glow), 3px 3px 0px #000;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--bat-text-muted);
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ==========================================================
+       PROFILE GRID LAYOUT
+       ========================================================== */
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 40px;
+      align-items: start;
+    }
+
+    .profile-card {
+      background: var(--bat-card-bg);
+      border: 1px solid var(--bat-card-border);
+      border-top: 4px solid var(--bat-yellow);
+      border-radius: 16px;
+      padding: 30px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--bat-yellow);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 20px var(--bat-yellow-glow);
+    }
+
+    /* Profile Avatar & Header Info */
+    .avatar-wrapper {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 20px;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--bat-yellow);
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    .gender-badge {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: var(--bat-black);
+      color: var(--bat-yellow);
+      border: 1px solid var(--bat-yellow);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .user-name {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #FFF;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .user-role {
+      text-align: center;
+      color: var(--bat-yellow);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    /* Quotes Section */
+    .quote-box {
+      background: rgba(11, 14, 20, 0.6);
+      border-left: 3px solid var(--bat-yellow);
+      padding: 15px 18px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 30px;
+    }
+
+    .quote-box p {
+      font-style: italic;
+      color: #CBD5E1;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    /* Section Titles inside Card */
+    .section-title {
+      font-family: 'Bangers', cursive;
+      font-size: 1.3rem;
+      color: var(--bat-yellow);
+      letter-spacing: 1.5px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(245, 197, 24, 0.15);
+      padding-bottom: 6px;
+    }
+
+    /* Top 4 Movies Grid */
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .movie-card {
+      background: #0D1117;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.03);
+      border-color: var(--bat-yellow);
+    }
+
+    .movie-poster {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .movie-title {
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #E2E8F0;
+      background: rgba(15, 20, 29, 0.9);
+    }
+
+    /* Spotify Embed Wrapper */
+    .spotify-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    }
+
+    .spotify-wrapper iframe {
+      display: block;
+      width: 100%;
+      height: 152px;
+      border: 0;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      color: var(--bat-text-muted);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+
+    footer span {
+      color: var(--bat-yellow);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header Batman Theme -->
+    <header>
+      <div class="bat-logo">
+        <svg viewBox="0 0 24 24">
+          <path d="M12,2C11.5,3.5 9,5 6,4C4,7 2,8 2,12C2,14 3.5,15.5 5,14.5C4,17 6,19 8.5,18.5C10.5,18 11.5,16 12,15C12.5,16 13.5,18 15.5,18.5C18,19 20,17 19,14.5C20.5,15.5 22,14 22,12C22,8 20,7 18,4C15,5 12.5,3.5 12,2Z"/>
+        </svg>
+      </div>
+      <h1>BESTIE BATMAN SELAMANYA</h1>
+      <p>Confidential Agent Profiles</p>
+    </header>
+
+    <!-- Profiles Grid -->
+    <div class="profiles-grid">
+      
+      <!-- ==================== PROFIL COWOK ==================== -->
+      <div class="profile-card">
+        <div class="avatar-wrapper">
+          <!-- GANTI LINK FOTO PROFIL COWOK DI SINI (Bisa link web atau nama file foto lokal, misal: foto-cowok.jpg) -->
+          <img src="foto andra.jpeg" alt="Foto Cowok" class="avatar-img">
+          <span class="gender-badge">MALE</span>
+        </div>
+        
+        <!-- GANTI NAMA & ROLE COWOK -->
+        <h2 class="user-name">DIANDRA SAHATJOGY SIPAHUTAR</h2>
+        
+
+        <!-- GANTI QUOTE COWOK -->
+        <div class="quote-box">
+          <p>"Whatever will be, will be."</p>
+        </div>
+
+        <!-- TOP 4 MOVIES COWOK -->
+        <div class="section-title">🎬 TOP 4 MOVIES</div>
+        <div class="movies-grid">
+          
+          <!-- Film 1 -->
+          <div class="movie-card">
+            <!-- GANTI LINK POSTER FILM 1 COWOK -->
+            <img src="Bebas (2019).jpeg" alt="Judul Film 1" class="movie-poster">
+            <!-- GANTI JUDUL FILM 1 -->
+            <div class="movie-title">Bebas</div>
+          </div>
+
+          <!-- Film 2 -->
+          <div class="movie-card">
+            <!-- GANTI LINK POSTER FILM 2 COWOK -->
+            <img src="Joko Anwar's Prison Action Horror 'Ghost in the___.jpeg" alt="Judul Film 2" class="movie-poster">
+            <!-- GANTI JUDUL FILM 2 -->
+            <div class="movie-title">Ghost in the Cell</div>
+          </div>
+
+          <!-- Film 3 -->
+          <div class="movie-card">
+            <!-- GANTI LINK POSTER FILM 3 COWOK -->
+            <img src="Nanti Kita Cerita Tentang Hari Ini.jpeg" alt="Judul Film 3" class="movie-poster">
+            <!-- GANTI JUDUL FILM 3 -->
+            <div class="movie-title">Nanti Kita Cerita Tentang Hari Ini</div>
+          </div>
+
+          <!-- Film 4 -->
+          <div class="movie-card">
+            <!-- GANTI LINK POSTER FILM 4 COWOK -->
+            <img src="dualima.jpeg" alt="Judul Film 4" class="movie-poster">
+            <!-- GANTI JUDUL FILM 4 -->
+            <div class="movie-title">2521</div>
+          </div>
+
+        </div>
+
+        <!-- SPOTIFY EMBED COWOK -->
+        <div class="section-title">🎵 FAVORITE TRACK</div>
+        <div class="spotify-wrapper">
+          <!-- GANTI LINK IFRAME SPOTIFY COWOK DI SRC SINI -->
+          <iframe src="https://open.spotify.com/embed/track/6Dh1zHQjEaOp29VW9pp3xG?utm_source=generator&si=f1edc90511804a1d" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+
+
+      <!-- ==================== PROFIL CEWEK ==================== -->
+      <div class="profile-card">
+        <div class="avatar-wrapper">
+          <!-- GANTI LINK FOTO PROFIL CEWEK DI SINI (Bisa link web atau nama file foto lokal, misal: foto-cewek.jpg) -->
+          <img src="foto christie.jpeg" alt="Foto Cewek" class="avatar-img">
+          <span class="gender-badge">FEMALE</span>
+        </div>
+        
+        <!-- GANTI NAMA & ROLE CEWEK -->
+        <h2 class="user-name">CRISTIE AYUHDIA</h2>
+        
+
+        <!-- GANTI QUOTE CEWEK -->
+        <div class="quote-box">
+          <p>"You're on your own kid."</p>
+        </div>
+
+        <!-- TOP 4 MOVIES CEWEK -->
+        <div class="section-title">🎬 TOP 4 MOVIES</div>
+        <div class="movies-grid">
+          
+          <!-- Film 1 -->
+          <div class="movie-card">
+            <!-- GANTI LINK POSTER FILM 1 CEWEK -->
+            <img src="La La Land.jpeg" alt="Judul Film 1" class="movie-poster">
+            <!-- GANTI JUDUL FILM 1 -->
+            <div class="movie-title">La La Land</div>
+          </div>
+
+          <!-- Film 2 -->
+          <div class="movie-card">
+            <!-- GANTI LINK POSTER FILM 2 CEWEK -->
+            <img src="Me Before You (2016).jpeg" alt="Judul Film 2" class="movie-poster">
+            <!-- GANTI JUDUL FILM 2 -->
+            <div class="movie-title">Me Before You</div>
+          </div>
+
+          <!-- Film 3 -->
+          <div class="movie-card">
+            <!-- GANTI LINK POSTER FILM 3 CEWEK -->
+            <img src="avengers.jpeg" alt="Judul Film 3" class="movie-poster">
+            <!-- GANTI JUDUL FILM 3 -->
+            <div class="movie-title">Avengers Endgame</div>
+          </div>
+
+          <!-- Film 4 -->
+          <div class="movie-card">
+            <!-- GANTI LINK POSTER FILM 4 CEWEK -->
+            <img src="HARRY POTTER AND THE SORCERER'S STONE (2001).jpeg" alt="Judul Film 4" class="movie-poster">
+            <!-- GANTI JUDUL FILM 4 -->
+            <div class="movie-title">Harry Potter</div>
+          </div>
+
+        </div>
+
+        <!-- SPOTIFY EMBED CEWEK -->
+        <div class="section-title">🎵 FAVORITE TRACK</div>
+        <div class="spotify-wrapper">
+          <!-- GANTI LINK IFRAME SPOTIFY CEWEK DI SRC SINI -->
+          <iframe src="https://open.spotify.com/embed/track/0QZLSImbxep9NyhhlCGOWh?utm_source=generator&si=a29bb1b6a0b24e3b" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      Protected by <span>BAT-SIGNAL TECH</span> &copy; 2026
+    </footer>
+  </div>
+
+</body>
+</html>
